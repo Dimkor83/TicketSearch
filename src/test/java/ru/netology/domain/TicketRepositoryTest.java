@@ -13,7 +13,7 @@ class TicketRepositoryTest {
     private Ticket firstTicket = new Ticket(1, 2100, "KUF", "EGO", 95);
     private Ticket secondTicket = new Ticket(2, 2110, "DME", "OGZ", 100);
     private Ticket thirdTicket = new Ticket(3, 2099, "KUF", "EGO", 110);
-    private Ticket forthTicket = new Ticket(4, 2230, "DME", "OGZ", 90);
+    private Ticket fourthTicket = new Ticket(4, 2230, "DME", "OGZ", 90);
     private Ticket fifthTicket = new Ticket(5, 1890, "KUF", "EGO", 95);
     private Ticket sixthTicket = new Ticket(6, 2143, "DME", "OGZ", 85);
     private Ticket seventhTicket = new Ticket(7, 1946, "KUF", "EGO", 95);
@@ -23,7 +23,7 @@ class TicketRepositoryTest {
         manager.add(firstTicket);
         manager.add(secondTicket);
         manager.add(thirdTicket);
-        manager.add(forthTicket);
+        manager.add(fourthTicket);
         manager.add(fifthTicket);
         manager.add(sixthTicket);
         manager.add(seventhTicket);
@@ -38,7 +38,7 @@ class TicketRepositoryTest {
 
     @Test
     void shouldFindById1() {
-        Ticket[] expected = new Ticket[]{firstTicket, secondTicket, thirdTicket, forthTicket, fifthTicket, sixthTicket, seventhTicket};
+        Ticket[] expected = new Ticket[]{firstTicket, secondTicket, thirdTicket, fourthTicket, fifthTicket, sixthTicket, seventhTicket};
         repository.findById(9);
         Ticket[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
@@ -47,9 +47,24 @@ class TicketRepositoryTest {
 
     @Test
     void shouldRemoveById() {
-        Ticket[] expected = new Ticket[]{firstTicket, secondTicket, thirdTicket, forthTicket, fifthTicket, seventhTicket};
+        Ticket[] expected = new Ticket[]{firstTicket, secondTicket, thirdTicket, fourthTicket, fifthTicket, seventhTicket};
         repository.removeById(6);
         Ticket[] actual = repository.findAll();
         assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void findAllTickets() {
+        Ticket[] expected = new Ticket[]{firstTicket, secondTicket, thirdTicket, fourthTicket, fifthTicket, sixthTicket, seventhTicket};
+        repository.findAll();
+        Ticket[] actual = repository.findAll();
+        assertArrayEquals(expected, actual);
+    }
+
+    @Test
+    void shouldSave() {
+        repository.save(new Ticket(8, 5000, "KZN", "MSK", 60));
+        int expected = 8;
+        Ticket[] actual = repository.findAll();
     }
 }
